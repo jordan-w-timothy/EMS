@@ -64,4 +64,69 @@ public class EmployeeDelegate {
             req.getRequestDispatcher("static/EmployeeIndex.jsp").forward(req,resp);
         }
     }
+
+    public void getAllResolved(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    public void getAllPending(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    public void editprofile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+
+        Employee currentEmployee = (Employee) session.getAttribute("currentEmployee");
+        if(session.getAttribute("currentEmployee") == null) {
+            resp.sendRedirect("login");
+        } else  if (currentEmployee.isManager()){
+            resp.sendRedirect("login");
+            req.getSession().invalidate();
+        } else {
+
+            try {
+                req.getRequestDispatcher("static/editProfile.jsp").forward(req,resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void viewProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
+        Employee currentEmployee = (Employee)session.getAttribute("currentEmployee");
+
+        if(session.getAttribute("currentEmployee") == null) {
+            resp.sendRedirect("login");
+        } else if(currentEmployee.isManager()) {
+            resp.sendRedirect("login");
+            req.getSession().invalidate();
+        } else {
+
+            try {
+                req.getRequestDispatcher("static/profileView.jsp").forward(req,resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void goHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
+        Employee currentEmployee = (Employee)session.getAttribute("currentEmployee");
+        if(session.getAttribute("currentEmployee") == null) {
+            resp.sendRedirect("login");
+        } else if(currentEmployee.isManager()) {
+            resp.sendRedirect("login");
+            req.getSession().invalidate();
+        } else {
+            try {
+                req.getRequestDispatcher("static/EmployeeIndex.jsp").forward(req,resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
