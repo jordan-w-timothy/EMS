@@ -8,6 +8,6 @@ public interface EmployeeDao {
     public boolean checkUser(String userName, String password);
     public Employee updateEmployee(int id, String firstName, String userName, String lastName, String email, String password);
     public List<Employee> getAllEmployees();
-    public boolean addEmployee(String userName, String firstName, String lastName, String password, String email, String isManager);
+    public boolean addEmployee(String userName, String firstName, String lastName, String password, String email, boolean isManager);
 
 }
